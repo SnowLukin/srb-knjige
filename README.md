@@ -18,9 +18,19 @@
 
 Данные хранятся только на этом Маке: `~/Library/Application Support/Knjige` (data.json, вложения и ежедневные резервные копии).
 
+## Установка без сборки
+
+Готовый `Knjige.dmg` собирается на GitHub Actions после каждого пуша в `main`: вкладка **Actions** → последний запуск **Build** → артефакт `Knjige-dmg`. Если запушить тег вида `v0.1`, DMG появится во вкладке **Releases**.
+
+Приложение подписано без Apple Developer ID, поэтому при первом запуске macOS его заблокирует. Открой через правый клик → «Открыть» или выполни в Терминале:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Knjige.app
+```
+
 ## Сборка
 
-Нужны macOS 14+ и Xcode 15+ (или Command Line Tools со Swift 5.9+).
+Нужны macOS 14+ и Xcode 15+ (или Command Line Tools со Swift 5.9+). DMG локально: `./scripts/make_dmg.sh`.
 
 ```bash
 git clone https://github.com/SnowLukin/srb-knjige.git
