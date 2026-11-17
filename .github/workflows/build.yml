@@ -1,23 +1,35 @@
 name: Release
 
-# Каждый пуш в main: тесты → сборка → новый релиз с Knjige.dmg во вкладке Releases.
+# Релиз выпускается только вручную:
+#  • Actions → Release → Run workflow → ввести версию (например 0.2), или
+#  • запушить тег: git tag v0.2 && git push origin v0.2
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Версия (например 0.2)"
+        required: true
+  push:
+    tags: ["v*"]
 
 permissions:
   contents: write
-
-concurrency:
-  group: release
-  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+
+      - name: Version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            V="${{ inputs.version }}"
+          else
+            V="${GITHUB_REF_NAME}"
+          fi
+          V="${V#v}"
+          echo "VERSION=$V" >> "$GITHUB_ENV"
 
       - name: Tests
         run: swift test
@@ -28,12 +40,9 @@ jobs:
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: v0.1.${{ github.run_number }}
         run: |
-          gh release create "$VERSION" build/Knjige.dmg \
+          gh release create "v$VERSION" build/Knjige.dmg \
             --target "$GITHUB_SHA" \
             --title "Knjige $VERSION" \
-            --latest \
-            --notes "$(git log -1 --pretty=%s)
-
-          Установка: открой Knjige.dmg и перетащи Knjige в «Программы». При первом запуске — правый клик → «Открыть»."
+            --generate-notes \
+            --latest
