@@ -4,7 +4,7 @@ struct HelpView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                PageHeader(title: "Как это работает", subtitle: "Предузетник на книгах с личной зарплатой — коротко и по шагам.")
+                PageHeader(title: "Как это работает", subtitle: "Что делать каждый месяц и раз в год.")
                 Group {
                     help("Каждый месяц", items: [
                         "1. В конце месяца — «Инвойсы» → «Новый инвойс». Номер и сумма подставятся сами. Сохрани PDF и отправь клиенту (или загрузи в Deel).",
