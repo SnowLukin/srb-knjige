@@ -52,7 +52,7 @@ public enum DeadlineCalendar {
                     id: "advance-\(year)-\(month)",
                     date: advanceDue,
                     title: "Аванс налога на прибыль за \(Dates.monthName(month))",
-                    details: "Платёж по решению из авансовой декларации PPDG-1S. Сумма — во вкладке «Налоги».",
+                    details: "Платёж по решению из авансовой декларации PPDG-1S. Сумма — в разделе «Налоги и сроки».",
                     form: nil,
                     done: advancePaid))
 
@@ -90,7 +90,7 @@ public enum DeadlineCalendar {
                 id: "ppdg2r-\(year)",
                 date: Dates.nextWorkingDay(Dates.make(year, 5, 15)),
                 title: "Годовой налог на доход за \(prev) (если превысил порог)",
-                details: "Подаётся, если доход за год (нетто-зарплата + прибыль после налога) больше 3 средних годовых зарплат. Прогноз — во вкладке «Налоги».",
+                details: "Подаётся, если доход за год (нетто-зарплата + прибыль после налога) больше 3 средних годовых зарплат. Прогноз — в разделе «Налоги и сроки».",
                 form: "PPDG-2R",
                 done: false))
             list.append(Deadline(

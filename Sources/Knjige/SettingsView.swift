@@ -258,7 +258,7 @@ struct AccountsSettings: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            InfoBox(text: "Счета, на которые раскладываются проводки. Коды с «?» нужно сверить с актуальным контным планом для предпринимателей (Pravilnik o kontnom okviru) или спросить у бухгалтера один раз — дальше всё работает само.",
+            InfoBox(text: "Счета, на которые раскладываются проводки. Коды с «?» нужно сверить с актуальным контным планом для предпринимателей (Pravilnik o kontnom okviru) или спросить у бухгалтера.",
                     systemImage: "exclamationmark.triangle", tint: .orange)
             Table(AccountKey.allCases) {
                 TableColumn("Код") { (key: AccountKey) in
