@@ -38,14 +38,6 @@ enum AppSection: String, CaseIterable, Identifiable, Hashable {
         case .help: return "questionmark.circle"
         }
     }
-
-    static let groups: [(String, [AppSection])] = [
-        ("", [.overview]),
-        ("Операции", [.invoices, .receipts, .conversions, .expenses]),
-        ("Обязательства", [.salary, .taxes]),
-        ("Учёт", [.journal, .report, .importFiles]),
-        ("", [.settings, .help])
-    ]
 }
 
 struct ContentView: View {
@@ -55,16 +47,28 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List(selection: $selection) {
-                ForEach(Array(AppSection.groups.enumerated()), id: \.offset) { _, group in
-                    if group.0.isEmpty {
-                        ForEach(group.1) { s in Label(s.title, systemImage: s.icon).tag(s) }
-                    } else {
-                        Section(group.0) {
-                            ForEach(group.1) { s in Label(s.title, systemImage: s.icon).tag(s) }
-                        }
-                    }
+                row(.overview)
+                Section("Операции") {
+                    row(.invoices)
+                    row(.receipts)
+                    row(.conversions)
+                    row(.expenses)
+                }
+                Section("Обязательства") {
+                    row(.salary)
+                    row(.taxes)
+                }
+                Section("Учёт") {
+                    row(.journal)
+                    row(.report)
+                    row(.importFiles)
+                }
+                Section {
+                    row(.settings)
+                    row(.help)
                 }
             }
+            .listStyle(.sidebar)
             .navigationSplitViewColumnWidth(min: 200, ideal: 220)
         } detail: {
             detail
@@ -84,6 +88,12 @@ struct ContentView: View {
         }
         .onAppear {
             if store.data.profile.businessName.isEmpty { selection = .settings }
+        }
+    }
+
+    private func row(_ s: AppSection) -> some View {
+        NavigationLink(value: s) {
+            Label(s.title, systemImage: s.icon)
         }
     }
 
