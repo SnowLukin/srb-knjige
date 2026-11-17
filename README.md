@@ -20,7 +20,9 @@
 
 ## Установка без сборки
 
-Каждый пуш в `main` автоматически собирает новый релиз: вкладка **Releases** → последняя версия → `Knjige.dmg`. Постоянная ссылка на свежую версию: https://github.com/SnowLukin/srb-knjige/releases/latest
+Готовый `Knjige.dmg` лежит во вкладке **Releases**: https://github.com/SnowLukin/srb-knjige/releases/latest
+
+Выпустить новую версию: **Actions → Release → Run workflow**, ввести номер версии (например `0.2`). Или запушить тег: `git tag v0.2 && git push origin v0.2`. Через ~5 минут в Releases появится новый DMG.
 
 Приложение подписано без Apple Developer ID, поэтому при первом запуске macOS его заблокирует. Открой через правый клик → «Открыть» или выполни в Терминале:
 
