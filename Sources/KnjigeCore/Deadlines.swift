@@ -24,7 +24,8 @@ public enum DeadlineCalendar {
         let regYear = registration.map(Dates.year)
         let regMonth = registration.map(Dates.month) ?? 1
         let firstMonth = (regYear == year) ? regMonth : 1
-        let active = regYear.map { $0 <= year } ?? true
+        // Без даты регистрации сроков не показываем — иначе весь год выглядит просроченным.
+        let active = regYear.map { $0 <= year } ?? false
 
         // Старт: авансовая декларация в течение 15 дней.
         if let reg = registration, regYear == year {

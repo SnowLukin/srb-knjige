@@ -149,6 +149,7 @@ struct TaxesView: View {
 
 struct DeadlineRow: View {
     let deadline: Deadline
+    var compact = false
 
     var body: some View {
         let days = deadline.daysLeft()
@@ -161,14 +162,16 @@ struct DeadlineRow: View {
             }
             .frame(width: 100, alignment: .leading)
             VStack(alignment: .leading, spacing: 2) {
-                HStack {
-                    Text(deadline.title).fontWeight(.medium)
-                    if let form = deadline.form {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(deadline.title).fontWeight(.medium).fixedSize(horizontal: false, vertical: true)
+                    if let form = deadline.form, !compact {
                         Text(form).font(.caption.monospaced()).padding(.horizontal, 5).padding(.vertical, 1)
                             .background(Capsule().fill(Color.secondary.opacity(0.15)))
                     }
                 }
-                Text(deadline.details).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                if !compact {
+                    Text(deadline.details).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                }
             }
             Spacer(minLength: 0)
             if deadline.done { Image(systemName: "checkmark.circle.fill").foregroundStyle(.green) }

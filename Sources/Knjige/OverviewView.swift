@@ -97,7 +97,7 @@ struct OverviewView: View {
                     .foregroundStyle(.secondary)
             }
             ForEach(list) { d in
-                DeadlineRow(deadline: d)
+                DeadlineRow(deadline: d, compact: true)
                 Divider()
             }
             Button("Все сроки →") { selection = .taxes }.buttonStyle(.link)

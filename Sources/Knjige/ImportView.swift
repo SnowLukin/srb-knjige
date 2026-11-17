@@ -23,11 +23,14 @@ struct ImportView: View {
                     .keyboardShortcut("v", modifiers: [.command, .shift])
                 Button { importing = true } label: { Label("Выбрать файлы…", systemImage: "folder") }
             }
-            HSplitView {
-                list.frame(minWidth: 240, idealWidth: 280, maxWidth: 360)
-                detail.frame(minWidth: 480, maxWidth: .infinity)
+            HStack(spacing: 0) {
+                list.frame(width: 270)
+                Divider()
+                detail.frame(minWidth: 320, maxWidth: .infinity, maxHeight: .infinity)
             }
+            .frame(maxHeight: .infinity)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .fileImporter(isPresented: $importing, allowedContentTypes: [.pdf, .image], allowsMultipleSelection: true) { result in
             if case .success(let urls) = result { urls.forEach(importFile) }
         }
@@ -60,7 +63,9 @@ struct ImportView: View {
                     }
                 }
             }
+            .frame(maxHeight: .infinity)
         }
+        .frame(maxHeight: .infinity, alignment: .top)
     }
 
     private var dropZone: some View {

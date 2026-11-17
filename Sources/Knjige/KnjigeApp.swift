@@ -22,8 +22,11 @@ struct KnjigeApp: App {
         WindowGroup("Knjige — книги предузетника") {
             ContentView()
                 .environmentObject(store)
-                .frame(minWidth: 1000, minHeight: 650)
+                .frame(minWidth: 900, minHeight: 560)
         }
+        .defaultSize(width: 1200, height: 800)
+        // Окно нельзя сделать меньше минимального размера интерфейса — иначе содержимое уезжает за край.
+        .windowResizability(.contentMinSize)
         .commands {
             CommandGroup(replacing: .newItem) {}
             CommandMenu("Данные") {

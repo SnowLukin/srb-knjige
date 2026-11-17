@@ -227,7 +227,7 @@ struct InfoBox: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: systemImage).foregroundStyle(tint)
-            Text(text).font(.callout).fixedSize(horizontal: false, vertical: true)
+            Text(text).font(.callout).frame(maxWidth: .infinity, alignment: .leading)
             Spacer(minLength: 0)
         }
         .padding(10)
